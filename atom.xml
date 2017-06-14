@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>猿世界</title>
-  <subtitle>不仅要明白是什么，更要清除为什么。</subtitle>
+  <subtitle>不仅要明白是什么，更要清楚为什么。</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
@@ -9,7 +9,7 @@
   <id>http://yoursite.com/</id>
   
   <author>
-    <name>冯生伟</name>
+    <name>JZ_Stone</name>
     
   </author>
   
