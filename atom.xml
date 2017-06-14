@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-06-14T09:09:25.000Z</updated>
+  <updated>2017-06-14T09:11:59.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,59 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>谈一谈我对属性，成员变量，实例变量，以及传说中的@property，@synthesize，@dynamic的认识</title>
+    <link href="http://yoursite.com/2017/06/14/%E8%B0%88%E4%B8%80%E8%B0%88%E6%88%91%E5%AF%B9%E5%B1%9E%E6%80%A7%EF%BC%8C%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%EF%BC%8C%E5%AE%9E%E4%BE%8B%E5%8F%98%E9%87%8F%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%BC%A0%E8%AF%B4%E4%B8%AD%E7%9A%84-property%EF%BC%8C-synthesize%EF%BC%8C-dynamic%E7%9A%84%E8%AE%A4%E8%AF%86/"/>
+    <id>http://yoursite.com/2017/06/14/谈一谈我对属性，成员变量，实例变量，以及传说中的-property，-synthesize，-dynamic的认识/</id>
+    <published>2017-06-14T09:11:18.000Z</published>
+    <updated>2017-06-14T09:11:59.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一-属性，成员变量，实例变量"><a href="#一-属性，成员变量，实例变量" class="headerlink" title="一. 属性，成员变量，实例变量"></a>一. 属性，成员变量，实例变量</h2><p>在讨论之前我先给大家推荐一个 <strong>NSObject</strong> 的类扩展 <strong>NSObject+DLIntrospection</strong> 利用 runtime，扩展了获取类的属性，实例变量，实例方法，类方法，协议protocol 等列表的方法，后面的讲解我们需要用到它。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#import &lt;Foundation/Foundation.h&gt;</div><div class="line"></div><div class="line">@interface NSObject (DLIntrospection)</div><div class="line"></div><div class="line">+ (NSArray *)classes; // 获取所有的类名</div><div class="line">+ (NSArray *)properties; // 获取属性列表</div><div class="line">+ (NSArray *)instanceVariables; // 获取实例变量列表</div><div class="line">+ (NSArray *)classMethods; // 获取类方法列表（+方法）</div><div class="line">+ (NSArray *)instanceMethods; // 获取实例方法列表（-方法）</div><div class="line">+ (NSArray *)protocols;  // 获取协议列表</div><div class="line">+ (NSDictionary *)descriptionForProtocol:(Protocol *)proto;</div><div class="line">+ (NSString *)parentClassHierarchy; // 当前类的继承关系</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>废话少说，先看代码<br>.h 源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">@interface HMTestClass : NSObject</div><div class="line">&#123;</div><div class="line">    NSString *_ivarInterface; // 实例变量，在iOS开发中也叫成员变量</div><div class="line">&#125;</div><div class="line">@property (nonatomic, copy) NSString *propertyInterface;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>再看 .m 源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@interface HMTestClass ()</div><div class="line">@property (nonatomic, copy) NSString *propertyImplementation;</div><div class="line">@end</div><div class="line"></div><div class="line">@implementation HMTestClass</div><div class="line">&#123;</div><div class="line">    NSString *_ivarImplementation; // 实例变量，在iOS开发中也叫成员变量</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure></p>
+<p>最后咱们看看调试输出结果<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 获取属性输出结果</span></div><div class="line">(lldb) po [HMTestClass properties]</div><div class="line">&lt;__NSArrayI <span class="number">0x100200c40</span>&gt;(</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span>* propertyImplementation,</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span>* propertyInterface</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 获取实例变量输出结果</span></div><div class="line">(lldb) po [HMTestClass instanceVariables]</div><div class="line">&lt;<span class="variable">__NSArrayI</span> <span class="number">0</span>x100300430&gt;(</div><div class="line">NSString* <span class="variable">_ivarInterface</span>,</div><div class="line">NSString* <span class="variable">_ivarImplementation</span>,</div><div class="line">NSString* <span class="variable">_propertyInterface</span>,</div><div class="line">NSString* <span class="variable">_propertyImplementation</span></div><div class="line">)</div></pre></td></tr></table></figure>
+<h3 id="看到这里，我们首先可以得出结论："><a href="#看到这里，我们首先可以得出结论：" class="headerlink" title="看到这里，我们首先可以得出结论："></a>看到这里，我们首先可以得出结论：</h3><ol>
+<li><strong>属性</strong> 即用 <strong>@property</strong>  声明的部分，它可以在 .h 文件里，也可以在 .m 文件里，在 .m 里即为私有属性；</li>
+<li>而 <strong>实例变量</strong> 即为被包含在 @interface 和 @implementation 下的大括号里的，以及 @property 时编译器为我们自动生成的两部分组成；</li>
+</ol>
+<blockquote>
+<p>我们还看到用 <strong>@property</strong> 声明的属性 propertyInterface 和 propertyImplementation，编译器自动给我们生成了对应以下划线 _ 开头的 <strong>实例变量</strong>，这一部分也是个学问，后一部分再讲</p>
+</blockquote>
+<p>关于 <strong>成员变量</strong> 我认为就是 <strong>实例变量</strong>，两者等价，又或者仅仅只是 @interface 下的部分。<br><strong>当然有官方更准确的描述的，非常非常欢迎感谢前来指正！！！</strong></p>
+<blockquote>
+<p>概括一下：<br>咱们用比喻的修辞手法来说，<strong>属性</strong> 是个口袋，属性名称描述它是上衣口袋，裤兜，还是其他位置的口袋，没有有实际意义，只让外界看到有一个口袋，当然口袋也可以缝在里面（在 .m 文件里声明），只有自己知道，当然放在外面的，也有可能只是看起来像个口袋，不能装东西（.m 里使用了 @dynamic 但忘记自己实现 set get，后面再详细介绍），而 <strong>实例变量</strong> 就是在口袋里存放的实实在在的东西。</p>
+</blockquote>
+<h2 id="二-property，-synthesize，-dynamic"><a href="#二-property，-synthesize，-dynamic" class="headerlink" title="二. @property，@synthesize，@dynamic"></a>二. @property，@synthesize，@dynamic</h2><ul>
+<li><strong>@property</strong> <ul>
+<li>属性声明关键字，有三个类别的关键词分别描述该属性的：线程限制，内存管理，读写权限三方面的表现，默认情况下，基本数据类型为 atomic, assign, readwrite，OC 对象为 atomic, strong, readwrite</li>
+<li>若 .m 文件不使用 @synthesize 和 @dynamic，编译器会自动生成属性的 set get 方法，并生成 已下划线 _ 加属性名的实例变量；</li>
+</ul>
+</li>
+<li><strong>@synthesize</strong> <ul>
+<li>@synthesize property; 这种情况下，编译器生成的实例变量没有了下滑下；</li>
+<li>@synthesize property = _ivar; 这种情况下，编译器不再生成实例变量，对 property 调用set get 实际操作的是 _ivar 实例变量，即这个口袋里放的是 _ivar;</li>
+</ul>
+</li>
+<li><strong>@dynamic</strong><ul>
+<li>@dynamic property; 编译器不会生成实例变量，同时也不会实现 set get 方法，需要开发者自己手写，如若忘记自己实现 set get，碰到对 set get 进行的调用的地方，程序会 crash，报unrecognized selector的异常</li>
+</ul>
+</li>
+</ul>
+<p><br><br>end</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;一-属性，成员变量，实例变量&quot;&gt;&lt;a href=&quot;#一-属性，成员变量，实例变量&quot; class=&quot;headerlink&quot; title=&quot;一. 属性，成员变量，实例变量&quot;&gt;&lt;/a&gt;一. 属性，成员变量，实例变量&lt;/h2&gt;&lt;p&gt;在讨论之前我先给大家推荐一个 &lt;stro
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>HMExpressionEvaluator——一个使用简单又强大的表达式计算库</title>
