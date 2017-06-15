@@ -73,9 +73,9 @@
     <link href="http://yoursite.com/2017/06/14/HMExpressionEvaluator%E2%80%94%E2%80%94%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8%E7%AE%80%E5%8D%95%E5%8F%88%E5%BC%BA%E5%A4%A7%E7%9A%84%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%A1%E7%AE%97%E5%BA%93/"/>
     <id>http://yoursite.com/2017/06/14/HMExpressionEvaluator——一个使用简单又强大的表达式计算库/</id>
     <published>2017-06-14T09:03:23.000Z</published>
-    <updated>2017-06-14T09:09:25.000Z</updated>
+    <updated>2017-06-15T02:47:41.000Z</updated>
     
-    <content type="html"><![CDATA[<p><strong>demo下载地址：</strong><a href="https://github.com/IOSLittleWhite/HMExpressionEvaluator" target="_blank" rel="external">https://github.com/IOSLittleWhite/HMExpressionEvaluator</a></p>
+    <content type="html"><![CDATA[<p><a href="https://github.com/IOSLittleWhite/HMExpressionEvaluator" target="_blank" rel="external"> <strong>demo下载地址</strong></a></p>
 <h2 id="一-简介"><a href="#一-简介" class="headerlink" title="一. 简介"></a>一. 简介</h2><ol>
 <li><p>一个数学表达式计算器，能实现和 <strong>UIWebView</strong> 的 stringByEvaluatingJavaScriptFromString: 一样的计算效果，但效率要高很多，可以在子线程中执行；</p>
 </li>
@@ -137,14 +137,16 @@
 <p><img src="http://upload-images.jianshu.io/upload_images/931410-932d39cac3fa373f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4. 选择确定输入到了输入框.png"></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/931410-cf719fb086124172.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5. 表达式无误完成计算.png"></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/931410-2a8c3bcc21de0bdf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6. 表达式有错误计算失败.png"></p>
-<p><br><br>感兴趣请下载demo研究，运行后，点击快速测试，快速一睹 HMExpressionValuator 的风采吧！<br>demo下载地址：<a href="https://github.com/IOSLittleWhite/HMExpressionEvaluator" target="_blank" rel="external">https://github.com/IOSLittleWhite/HMExpressionEvaluator</a></p>
+<p><br><br>感兴趣请下载demo研究，运行后，点击快速测试，快速一睹 HMExpressionValuator 的风采吧！</p>
+<p><a href="https://github.com/IOSLittleWhite/HMExpressionEvaluator" target="_blank" rel="external"> <strong>demo下载地址</strong></a></p>
 <p>意见建议请联系：</p>
-<p><strong>QQ: 247159603</strong><br><br><br><strong>简书：JZ_Stone</strong></p>
+<p><strong>QQ: 247159603</strong><br><br><br><strong>简书：</strong> <a href="http://www.jianshu.com/u/9f166a0db301" target="_blank" rel="external"> <strong>JZ_Stone</strong></a></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;strong&gt;demo下载地址：&lt;/strong&gt;&lt;a href=&quot;https://github.com/IOSLittleWhite/HMExpressionEvaluator&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github
+      &lt;p&gt;&lt;a href=&quot;https://github.com/IOSLittleWhite/HMExpressionEvaluator&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt; &lt;strong&gt;demo下载地址&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 i
     
     </summary>
     
