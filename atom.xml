@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-04T15:18:57.000Z</updated>
+  <updated>2017-07-04T15:33:06.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>解决给xib中的button设置倒计时title闪烁的问题</title>
     <link href="http://yoursite.com/2017/07/04/%E8%A7%A3%E5%86%B3%E7%BB%99xib%E4%B8%AD%E7%9A%84button%E8%AE%BE%E7%BD%AE%E5%80%92%E8%AE%A1%E6%97%B6title%E9%97%AA%E7%83%81%E7%9A%84%E9%97%AE%E9%A2%98/"/>
     <id>http://yoursite.com/2017/07/04/解决给xib中的button设置倒计时title闪烁的问题/</id>
-    <published>2017-07-04T15:18:57.000Z</published>
-    <updated>2017-07-04T15:18:57.000Z</updated>
+    <published>2017-07-04T15:32:17.000Z</published>
+    <updated>2017-07-04T15:33:06.000Z</updated>
     
     <content type="html"><![CDATA[<p>以前一直是纯代码编写开发APP，最近开始在项目里使用xib和storyboard，摸索了一整天，终于算基本掌握，但临近下班时，发现了一个很奇葩的问题…</p>
 <h3 id="问题场景是这样的"><a href="#问题场景是这样的" class="headerlink" title="问题场景是这样的:"></a>问题场景是这样的:</h3><blockquote>
