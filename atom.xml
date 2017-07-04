@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-06-14T09:11:59.000Z</updated>
+  <updated>2017-07-04T15:18:57.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,48 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2017/07/04/%E8%A7%A3%E5%86%B3%E7%BB%99xib%E4%B8%AD%E7%9A%84button%E8%AE%BE%E7%BD%AE%E5%80%92%E8%AE%A1%E6%97%B6title%E9%97%AA%E7%83%81%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2017/07/04/解决给xib中的button设置倒计时title闪烁的问题/</id>
+    <published>2017-07-04T15:18:57.000Z</published>
+    <updated>2017-07-04T15:18:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>以前一直是纯代码编写开发APP，最近开始在项目里使用xib和storyboard，摸索了一整天，终于算基本掌握，但临近下班时，发现了一个很奇葩的问题…</p>
+<h3 id="问题场景是这样的"><a href="#问题场景是这样的" class="headerlink" title="问题场景是这样的:"></a>问题场景是这样的:</h3><blockquote>
+<p>用户修改绑定手机号时，需要获取验证码，然后按钮显示60秒倒计时，在此期间按钮点击失效，并每隔一秒通过setTile:forState方法更新按钮标题，显示倒计时。</p>
+</blockquote>
+<p>最初的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSString *title = [NSString stringWithFormat:@&quot;%ld秒后重试&quot;, self.count];</div><div class="line">[self.getCheckCodeButton setTitle:title forState:UIControlStateDisabled];</div></pre></td></tr></table></figure>
+<p>这应该是一个大家非常熟悉的一个常规需求，在以前使用纯代码编写时，不会有任何问题，然而今天的奇葩显现是，每次调用setTitle更新按钮标题时，都会消失一下再显示，看起来就是每个一秒的闪烁显示，特别酷炫（哈哈哈！），然而这<strong>并不是此刻我们需要的效果…</strong></p>
+<h2 id="怎么办呢？"><a href="#怎么办呢？" class="headerlink" title="怎么办呢？"></a>怎么办呢？</h2><p>悄悄地去度娘一搜，还真有不少小伙伴也碰到了同样的问题，先来说说网上搜到的方法：</p>
+<h3 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h3><p>在storyboard找到这个不老实的button，将他的type设置为Custom，默认是System。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/931410-b851b9263a49c7ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="默认值System.png"></p>
+<p>修改之后如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/931410-18aca979a2c4d471.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="改成Custom.png"></p>
+<p>很不幸的是，这种最简单的操作方式，在我这里 <strong>并没有奏效</strong> …  <strong>并没有奏效</strong> … <strong>并没有奏效</strong> <strong>!!!!!!</strong><br>幸好网络资源棒棒哒，很快我又找到了另一种方法。</p>
+<h3 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h3><p>这个方法虽然奏效，但我觉得很奇葩，很扯蛋，哈哈，可能奇葩的问题需要奇葩的方法，想出这个方法的同学其实还是很腻害的，<strong>膜拜！哈哈！！！</strong><br>下面来看这位同学的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NSString *title = [NSString stringWithFormat:@&quot;%ld秒后重试&quot;, self.count];</div><div class="line">self.getCheckCodeButton.titleLabel.text = title; // 这一句很重要，是关键，而且必须在setTitle之前，别问我为什么，我不知道，捂脸 捂脸 捂脸</div><div class="line">[self.getCheckCodeButton setTitle:title forState:UIControlStateDisabled];</div></pre></td></tr></table></figure>
+<p>如注释所示，就是在setTitle之前，直接通过titleLabel给按钮标题赋值，然后再setTitle，这两行代买一个字都不能少，而且不需是这个顺序，setTitle断后。</p>
+<blockquote>
+<p>这个方法虽然能解决问题，但对于有代码洁癖的人，怎么能接受这么奇葩的使用方式？？？<br>于是通过高人指点，最终的完美解决方案诞生了…看方法三</p>
+</blockquote>
+<h3 id="方法三："><a href="#方法三：" class="headerlink" title="方法三："></a>方法三：</h3><p>先来看优雅的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">NSString *title = [NSString stringWithFormat:@&quot;%ld秒后重试&quot;, self.count];</div><div class="line">[UIView performWithoutAnimation:^&#123;</div><div class="line">        [self.getCheckCodeButton setTitle:title forState:UIControlStateDisabled];</div><div class="line">        [self.getCheckCodeButton layoutIfNeeded];</div><div class="line">    &#125;];</div></pre></td></tr></table></figure>
+<p>现在我们先来谈谈出现闪烁问题的根本原因，通过xib创建的button，在setTitle的时候，默认添加了一个隐式的fade动画，使得title的更新是一个渐变的过程，而这个动画时间慢到了我们肉眼完全可以的感知的速度，于是出现了我们看到的闪烁，所以解决问题的关键，当然就是去禁用这个该死的动画了，而UIView的API里就已经提供了我们禁用隐式动画的block方法了，到此，问题完美解决！！！！</p>
+<p>多些高人指点，觉得有记录和分享价值，睡前坚持把字码起来，希望小伙伴们喜欢！！！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;以前一直是纯代码编写开发APP，最近开始在项目里使用xib和storyboard，摸索了一整天，终于算基本掌握，但临近下班时，发现了一个很奇葩的问题…&lt;/p&gt;
+&lt;h3 id=&quot;问题场景是这样的&quot;&gt;&lt;a href=&quot;#问题场景是这样的&quot; class=&quot;headerlink&quot; 
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>谈一谈我对属性，成员变量，实例变量，以及传说中的@property，@synthesize，@dynamic的认识</title>
