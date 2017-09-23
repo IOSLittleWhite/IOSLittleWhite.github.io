@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-09-23T02:56:01.000Z</updated>
+  <updated>2017-09-23T03:07:38.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/09/21/iOS11%E9%80%82%E9%85%8D%E4%B9%8B%EF%BC%9A0%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E5%AF%BC%E8%88%AA%E6%A0%8FUIBarButtonItem%E9%97%B4%E8%B7%9D%E8%B0%83%E6%95%B4/"/>
     <id>http://yoursite.com/2017/09/21/iOS11适配之：0代码实现导航栏UIBarButtonItem间距调整/</id>
     <published>2017-09-21T12:48:18.000Z</published>
-    <updated>2017-09-23T02:56:01.000Z</updated>
+    <updated>2017-09-23T03:07:38.000Z</updated>
     
     <content type="html"><![CDATA[<p>最新版Xcode9在20号已经提供下载了，Stone哥哥作为一个凡事喜欢走在前面的人（不要脸了，哈哈哈，不过Stone哥哥的手机系统确实是从iOS 11第一个beta版开始使用的，体验过各种bug煎熬，终于熬到正式版了，内牛满面…），当然第一时间就升级了，下载安装完5个多鸡的安装包，Stone哥哥激动的打开了目前正在开发的项目，Command+B，成功编译！但是当我点击运行，在APP中跳转几个页面后，忽然注意到导航栏…WTF!!!</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/931410-e49e895acf75a87e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WTF.png"></p>
@@ -74,7 +74,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#ifndef ZGNavBarItemSpceMacro_h</div><div class="line">#define ZGNavBarItemSpceMacro_h</div><div class="line"></div><div class="line">#define ZG_BAR_ITEM_SCREEN_BORDER_GAP           10  // item到屏幕边缘的距离</div><div class="line">#define ZG_BAR_ITEM_GAP                         5   // item之间的距离 ios11以后生效</div><div class="line">#define ZG_BAR_ITEM_LEFT_ICON_EDGE_INSETS       6   // 左边item图标图片内边距</div><div class="line">#define ZG_BAR_ITEM_RIGHT_ICON_EDGE_INSETS      2   // 右边item图标图片内边距</div><div class="line">#define ZG_BAR_ITEM_MIN_WIDTH                   44  // item的最小宽度</div><div class="line">#define ZG_BAR_ITEM_FONT                        [UIFont systemFontOfSize:15 weight:UIFontWeightLight] // item字体 ios11以后生效</div><div class="line"></div><div class="line"></div><div class="line">#endif /* ZGNavBarItemSpceMacro_h */</div></pre></td></tr></table></figure>
 <hr>
 <p>好啦，全部干活已出，感谢阅读，欢迎去GitHub下载并点星星，爱你哟！！！</p>
-<p><a href="https://github.com/IOSLittleWhite/ZGNavigationBarItemFixSpace" target="_blank" rel="external"> <strong>下载源码</strong></a></p>
+<p><a href="https://github.com/IOSLittleWhite/ZGNavigationBarItemFixSpace" target="_blank"> <strong>下载源码</strong></a></p>
 ]]></content>
     
     <summary type="html">
